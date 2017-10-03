@@ -10,7 +10,7 @@ power generation, fish protection ecologic zone.
 
 The different entities interested in the use of water have separate goals that are mapped in different utility functions.
 Each entity is represented by an agent that controls the quantity of water to be retrieved from the river for it to use,
-in order to meet its goals and some restrictions(for instance, the minimum water level of the river after the
+in order to meet its goals and some restrictions (for instance, the minimum water level of the river after the
 water to supply the city being retrieved). Consult the mentioned bibliography for an appropriate description of the
 restrictions to consider.
 
@@ -26,4 +26,4 @@ https://www.researchgate.net/publication/299416955_Applying_Multi-Agent_Reinforc
 * [Francesco Amigoni, Andrea Castelletti and Matteo Giuliani (2015), Modeling the Management of Water Resources Systems
 Using Multi-Objective DCOPs, Proceedings of the 2015 International Conference on Autonomous Agents and Multiagent
 Systems, Istanbul, Turkey](
-https://www.researchgate.net/publication/299416955_Applying_Multi-Agent_Reinforcement_Learning_to_Watershed_Management)
+https://dl.acm.org/citation.cfm?id=2773258)
