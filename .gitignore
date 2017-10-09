@@ -25,3 +25,8 @@ gradle-app.setting
 /subprojects/*/out
 /.teamcity/*.iml
 /.teamcity/target
+
+# JADE
+# ----
+APDescription.txt
+MTPs-Main-Container.txt
