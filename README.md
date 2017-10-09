@@ -18,6 +18,10 @@ The multi-agent system to implement must regulate the water used by all the inte
 between the goals/interests of all the agents and the restrictions applied. Reinforcement learning is used in this
 regulation.
 
+<p align="center">
+  <img src="https://i.imgur.com/TRRzOAE.png" alt="A synthetic water resources system">
+</p>
+
 # Material
 * JADE, Repast+SAJaS
 * [Karl Mason, Patrick Mannion, Jim Duggan and Edna Howley (2016). Applying Multi-Agent Reinforcement Learning to
