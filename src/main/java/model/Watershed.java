@@ -63,10 +63,10 @@ public class Watershed {
         try {
 
             AgentController environmentController = cc.createNewAgent("EnvironmentAgent", EnvironmentAgent.class.getName(), null);
-            AgentController cityController = cc.createNewAgent("CityAgent", CityAgent.class.getName(), null);
-            AgentController damController = cc.createNewAgent("DamAgent", DamAgent.class.getName(), null);
-            AgentController farm1Controller = cc.createNewAgent("FarmAgent1", FarmAgent.class.getName(), new Object[] {new String("1")});
-            AgentController farm2Controller = cc.createNewAgent("FarmAgent2", FarmAgent.class.getName(), new Object[] {new String("2")});
+            AgentController cityController = cc.createNewAgent("CityAgent", CityAgent.class.getName(), new Object[] {a1, b1, c1});
+            AgentController damController = cc.createNewAgent("DamAgent", DamAgent.class.getName(), new Object[] {a2, b2, c2});
+            AgentController farm1Controller = cc.createNewAgent("FarmAgent1", FarmAgent.class.getName(), new Object[] {new String("1"), a4, b4, c4});
+            AgentController farm2Controller = cc.createNewAgent("FarmAgent2", FarmAgent.class.getName(), new Object[] {new String("2"), a6, b6, c6});
 
 
             agents.add(environmentController);
