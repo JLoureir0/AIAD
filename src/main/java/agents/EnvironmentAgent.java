@@ -3,36 +3,31 @@ package agents;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 
-public class FarmAgent extends Agent {
-
-    private static String farmNo;
+public class EnvironmentAgent extends Agent{
 
     protected void setup() {
-        Object[] args = getArguments();
 
-        farmNo = args[0].toString();
-
-        System.out.println("Farm" + farmNo + " Agent");
-        addBehaviour(new FarmWaterManagement(20));
+        System.out.println("Environment Agent");
+        addBehaviour(new EnvironmentBehaviour(20));
     }
 
     protected void takeDown() {
 
     }
 
-    public class FarmWaterManagement extends Behaviour {
+    public class EnvironmentBehaviour extends Behaviour {
 
         private int duration;
         private int counter;
 
-        public FarmWaterManagement(int duration)
+        public EnvironmentBehaviour(int duration)
         {
             this.duration = duration;
         }
 
         public void action() {
 
-            System.out.println("Farm" + farmNo + " Management");
+            System.out.println("Environment Behaviour");
             counter++;
         }
 
