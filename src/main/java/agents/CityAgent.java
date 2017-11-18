@@ -3,7 +3,7 @@ package agents;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 
-public class CityAgent extends Agent{
+public class CityAgent extends Agent {
 
     private static double a1, b1, c1;
 
@@ -11,10 +11,12 @@ public class CityAgent extends Agent{
 
         Object[] args = getArguments();
 
-        if(args.length != 3){
+        if(args.length != 3) {
+
             System.out.println("Incorrect arguments");
             doDelete();
             return;
+
         }
 
         a1 = Double.parseDouble(args[0].toString());
@@ -23,23 +25,23 @@ public class CityAgent extends Agent{
 
         System.out.println("City Agent");
         addBehaviour(new CityWaterManagement(20));
+
     }
 
     protected void takeDown() {
         doDelete();
     }
 
-    private double objFunction(double x1){
+    private double objFunction(double x1) {
         return a1*x1*x1+b1*x1+c1;
     }
 
-    public class CityWaterManagement extends Behaviour{
+    public class CityWaterManagement extends Behaviour {
 
         private int duration;
         private int counter;
 
-        public CityWaterManagement(int duration)
-        {
+        public CityWaterManagement(int duration) {
             this.duration = duration;
         }
 
@@ -47,6 +49,7 @@ public class CityAgent extends Agent{
 
             System.out.println("City Management");
             counter++;
+
         }
 
         public boolean done() {
@@ -55,6 +58,7 @@ public class CityAgent extends Agent{
                 return true;
 
             return false;
+
         }
 
     }

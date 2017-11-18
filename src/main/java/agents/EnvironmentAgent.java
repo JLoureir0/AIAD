@@ -9,10 +9,11 @@ public class EnvironmentAgent extends Agent{
 
         System.out.println("Environment Agent");
         addBehaviour(new EnvironmentBehaviour(20));
+
     }
 
     protected void takeDown() {
-
+        doDelete();
     }
 
     public class EnvironmentBehaviour extends Behaviour {
@@ -20,8 +21,7 @@ public class EnvironmentAgent extends Agent{
         private int duration;
         private int counter;
 
-        public EnvironmentBehaviour(int duration)
-        {
+        public EnvironmentBehaviour(int duration) {
             this.duration = duration;
         }
 
@@ -29,6 +29,7 @@ public class EnvironmentAgent extends Agent{
 
             System.out.println("Environment Behaviour");
             counter++;
+
         }
 
         public boolean done() {
@@ -37,6 +38,7 @@ public class EnvironmentAgent extends Agent{
                 return true;
 
             return false;
+
         }
 
     }

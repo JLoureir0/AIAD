@@ -11,10 +11,12 @@ public class DamAgent extends Agent {
 
         Object[] args = getArguments();
 
-        if(args.length != 3){
+        if(args.length != 3) {
+
             System.out.println("Incorrect arguments");
             doDelete();
             return;
+
         }
 
         a2 = Double.parseDouble(args[0].toString());
@@ -23,13 +25,14 @@ public class DamAgent extends Agent {
 
         System.out.println("Dam Agent");
         addBehaviour(new DamWaterManagement(20));
+
     }
 
     protected void takeDown() {
         doDelete();
     }
 
-    private double objFunction(double x2){
+    private double objFunction(double x2) {
         return a2*x2*x2+b2*x2+c2;
     }
 
@@ -38,8 +41,7 @@ public class DamAgent extends Agent {
         private int duration;
         private int counter;
 
-        public DamWaterManagement(int duration)
-        {
+        public DamWaterManagement(int duration) {
             this.duration = duration;
         }
 
@@ -47,6 +49,7 @@ public class DamAgent extends Agent {
 
             System.out.println("Dam Management");
             counter++;
+
         }
 
         public boolean done() {
@@ -55,6 +58,7 @@ public class DamAgent extends Agent {
                 return true;
 
             return false;
+
         }
 
     }

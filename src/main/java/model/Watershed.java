@@ -1,13 +1,12 @@
 package model;
 
 import agents.*;
+
 import jade.core.Profile;
 import jade.core.ProfileImpl;
-import jade.wrapper.AgentController;
 import jade.wrapper.ContainerController;
+import jade.wrapper.ControllerException;
 import jade.wrapper.StaleProxyException;
-
-import java.util.ArrayList;
 
 public class Watershed {
 
@@ -40,40 +39,35 @@ public class Watershed {
     public static final int alpha5 = 15;
     public static final int alpha6 = 10;
 
-    private static ArrayList<AgentController> agents;
+    private static final String[] agentsNames = {"EnvironmentAgent", "CityAgent", "DamAgent", "FarmAgent1", "FarmAgent2"};
 
-    public Watershed(){
+    private static Profile p;
+    private static ContainerController container;
+
+    public Watershed() {
 
         if(!initAgents())
             return;
 
         if(!startAgents())
             return;
+
     }
 
-    private boolean initAgents(){
+    private boolean initAgents() {
 
-        // Start the JADE Main Container
-        Profile p = new ProfileImpl(true);
-        ContainerController cc = jade.core.Runtime.instance().createMainContainer(p);
+        // JADE Main Container
+        p = new ProfileImpl(true);
+        container = jade.core.Runtime.instance().createMainContainer(p);
 
-        agents = new ArrayList<>();
-
-        // To start agents on the created (main) container
+        // Add agents to container
         try {
 
-            AgentController environmentController = cc.createNewAgent("EnvironmentAgent", EnvironmentAgent.class.getName(), null);
-            AgentController cityController = cc.createNewAgent("CityAgent", CityAgent.class.getName(), new Object[] {a1, b1, c1});
-            AgentController damController = cc.createNewAgent("DamAgent", DamAgent.class.getName(), new Object[] {a2, b2, c2});
-            AgentController farm1Controller = cc.createNewAgent("FarmAgent1", FarmAgent.class.getName(), new Object[] {new String("1"), a4, b4, c4});
-            AgentController farm2Controller = cc.createNewAgent("FarmAgent2", FarmAgent.class.getName(), new Object[] {new String("2"), a6, b6, c6});
-
-
-            agents.add(environmentController);
-            agents.add(cityController);
-            agents.add(damController);
-            agents.add(farm1Controller);
-            agents.add(farm2Controller);
+            container.createNewAgent(agentsNames[0], EnvironmentAgent.class.getName(), null);
+            container.createNewAgent(agentsNames[1], CityAgent.class.getName(), new Object[] {a1, b1, c1});
+            container.createNewAgent(agentsNames[2], DamAgent.class.getName(), new Object[] {a2, b2, c2});
+            container.createNewAgent(agentsNames[3], FarmAgent.class.getName(), new Object[] {new String("1"), a4, b4, c4});
+            container.createNewAgent(agentsNames[4], FarmAgent.class.getName(), new Object[] {new String("2"), a6, b6, c6});
 
         }
         catch(StaleProxyException e) {
@@ -85,27 +79,26 @@ public class Watershed {
         }
 
         return true;
+
     }
 
-    private boolean startAgents(){
+    private boolean startAgents() {
 
-       int nAgents = agents.size();
+       try {
 
-        try {
+            for(String name : agentsNames)
+                container.getAgent(name).start();
 
-            for(int i=0; i<nAgents; i++)
-                agents.get(i).start();
+       } catch (ControllerException e) {
 
-        }
-        catch(StaleProxyException e) {
-
-            System.out.println("Error inserting agents in the controller");
+            System.out.println("Error starting agents");
             e.printStackTrace();
             return false;
 
-        }
+       }
 
-        return true;
+       return true;
+
     }
 
 }

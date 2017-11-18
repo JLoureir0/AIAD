@@ -17,11 +17,11 @@ public class App extends JFrame{
     private static final int width = 600, height = 600;
     private static final int widthButton = 100, heightButton = 30;
 
-    public App(){
+    public App() {
         init();
     }
 
-    private void init(){
+    private void init() {
 
         //Main Frame
         setTitle("Watershed");
@@ -72,12 +72,14 @@ public class App extends JFrame{
         launchSim = new JButton("Launch");
 
         launchSim.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
 
                 Watershed watershed = new Watershed();
 
             }
-        } );
+
+        });
 
         launchSim.setSize(widthButton, heightButton);
         launchSim.setLocation((width/2)-(widthButton/2), 560);
@@ -93,22 +95,22 @@ public class App extends JFrame{
 
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         App a = new App();
     }
 
 
     //Nested classes
-    private class SchemaPanel extends JPanel{
+    private class SchemaPanel extends JPanel {
 
         private static final int width = 600, height = 300;
 
-        public SchemaPanel(){
+        public SchemaPanel() {
             setSize(width, height);
         }
 
         @Override
-        protected void paintComponent(Graphics g){
+        protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
             Graphics2D g2 = (Graphics2D) g;
@@ -146,18 +148,17 @@ public class App extends JFrame{
 
     }
 
-    private class WaterContainerPanel extends JPanel{
+    private class WaterContainerPanel extends JPanel {
 
         private static final int width = 150, height = 200;
 
-        public WaterContainerPanel(){
+        public WaterContainerPanel() {
             setSize(width, height);
         }
 
         @Override
-        protected void paintComponent(Graphics g){
+        protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-
         }
 
     }

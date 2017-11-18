@@ -12,10 +12,12 @@ public class FarmAgent extends Agent {
 
         Object[] args = getArguments();
 
-        if(args.length != 4){
+        if(args.length != 4) {
+
             System.out.println("Incorrect arguments");
             takeDown();
             return;
+
         }
 
         farmNo = args[0].toString();
@@ -26,13 +28,14 @@ public class FarmAgent extends Agent {
 
         System.out.println("Farm" + farmNo + " Agent");
         addBehaviour(new FarmWaterManagement(20));
+
     }
 
     protected void takeDown() {
         doDelete();
     }
 
-    private double objFunction(double x){
+    private double objFunction(double x) {
         return ax*x*x+bx*x+cx;
     }
 
@@ -41,8 +44,7 @@ public class FarmAgent extends Agent {
         private int duration;
         private int counter;
 
-        public FarmWaterManagement(int duration)
-        {
+        public FarmWaterManagement(int duration) {
             this.duration = duration;
         }
 
@@ -50,6 +52,7 @@ public class FarmAgent extends Agent {
 
             System.out.println("Farm" + farmNo + " Management");
             counter++;
+
         }
 
         public boolean done() {
@@ -58,6 +61,7 @@ public class FarmAgent extends Agent {
                 return true;
 
             return false;
+
         }
 
     }
