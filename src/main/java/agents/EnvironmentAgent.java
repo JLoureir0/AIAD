@@ -1,9 +1,15 @@
 package agents;
 
+import static model.Utils.*;
+
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
+import jade.lang.acl.ACLMessage;
 
 public class EnvironmentAgent extends Agent{
+
+    private static String state = "send";
 
     protected void setup() {
 
@@ -27,7 +33,47 @@ public class EnvironmentAgent extends Agent{
 
         public void action() {
 
-            System.out.println("Environment Behaviour");
+            if(state.equals("receive")) {
+
+                ACLMessage msg = receive();
+
+                if(msg != null) {
+
+                    System.out.println(getLocalName() + " received ACLMessage" + ": " + msg.getContent());
+                    state = "send";
+
+                }
+                else {
+
+                    block();
+
+                }
+
+            }
+
+            if(state.equals("send")) {
+
+                for(String agent : agentsNames) {
+
+                    if(!agent.equals(getLocalName())) {
+
+                        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+                        msg.addReceiver(new AID(agent, AID.ISLOCALNAME));
+                        msg.setLanguage("English");
+                        //msg.setOntology("Value sharing");
+                        msg.setContent("Hi " + agent + ", from " + getLocalName());
+                        send(msg);
+
+                        System.out.println(getLocalName() + " sent ACLMessage" + ": " + msg.getContent());
+
+                    }
+
+                }
+
+                state = "receive";
+
+            }
+
             counter++;
 
         }

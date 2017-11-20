@@ -1,6 +1,7 @@
 package model;
 
 import agents.*;
+import static model.Utils.*;
 
 import jade.core.Profile;
 import jade.core.ProfileImpl;
@@ -38,8 +39,6 @@ public class Watershed {
     public static final int alpha4 = 6;
     public static final int alpha5 = 15;
     public static final int alpha6 = 10;
-
-    private static final String[] agentsNames = {"EnvironmentAgent", "CityAgent", "DamAgent", "FarmAgent1", "FarmAgent2"};
 
     private static Profile p;
     private static ContainerController container;
@@ -89,7 +88,8 @@ public class Watershed {
             for(String name : agentsNames)
                 container.getAgent(name).start();
 
-       } catch (ControllerException e) {
+       }
+       catch(ControllerException e) {
 
             System.out.println("Error starting agents");
             e.printStackTrace();
