@@ -9,12 +9,12 @@ import jade.lang.acl.ACLMessage;
 
 public class EnvironmentAgent extends Agent{
 
-    private static String state = "send";
+    private static String state = SEND;
 
     protected void setup() {
 
-        System.out.println("Environment Agent");
-        addBehaviour(new EnvironmentBehaviour(20));
+        System.out.println(getLocalName());
+        addBehaviour(new EnvironmentBehaviour());
 
     }
 
@@ -24,23 +24,18 @@ public class EnvironmentAgent extends Agent{
 
     public class EnvironmentBehaviour extends Behaviour {
 
-        private int duration;
-        private int counter;
-
-        public EnvironmentBehaviour(int duration) {
-            this.duration = duration;
-        }
+        private int counter = 0;
 
         public void action() {
 
-            if(state.equals("receive")) {
+            if(state.equals(RECEIVE)) {
 
                 ACLMessage msg = receive();
 
                 if(msg != null) {
 
                     System.out.println(getLocalName() + " received ACLMessage" + ": " + msg.getContent());
-                    state = "send";
+                    state = SEND;
 
                 }
                 else {
@@ -51,7 +46,7 @@ public class EnvironmentAgent extends Agent{
 
             }
 
-            if(state.equals("send")) {
+            if(state.equals(SEND)) {
 
                 for(String agent : agentsNames) {
 
@@ -70,7 +65,7 @@ public class EnvironmentAgent extends Agent{
 
                 }
 
-                state = "receive";
+                state = RECEIVE;
 
             }
 
@@ -80,10 +75,7 @@ public class EnvironmentAgent extends Agent{
 
         public boolean done() {
 
-            if(counter == duration)
-                return true;
-
-            return false;
+            return (counter == nEpisodes);
 
         }
 

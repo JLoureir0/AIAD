@@ -1,6 +1,7 @@
 package agents;
 
 import static model.Utils.*;
+import behaviours.QLearning;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -9,9 +10,9 @@ import jade.lang.acl.ACLMessage;
 
 public class FarmAgent extends Agent {
 
-    private static String farmNo;
+    private static int farmNo;
     private static double ax, bx, cx;
-    private static String state = "send";
+    private static String state = SEND;
 
     protected void setup() {
 
@@ -25,14 +26,14 @@ public class FarmAgent extends Agent {
 
         }
 
-        farmNo = args[0].toString();
+        farmNo = Integer.parseInt(args[0].toString());
 
         ax = Double.parseDouble(args[1].toString());
         bx = Double.parseDouble(args[2].toString());
         cx = Double.parseDouble(args[3].toString());
 
-        System.out.println("Farm" + farmNo + " Agent");
-        addBehaviour(new FarmWaterManagement(20));
+        System.out.println(getLocalName());
+        addBehaviour(new FarmWaterManagement());
 
     }
 
@@ -46,23 +47,19 @@ public class FarmAgent extends Agent {
 
     public class FarmWaterManagement extends Behaviour {
 
-        private int duration;
-        private int counter;
-
-        public FarmWaterManagement(int duration) {
-            this.duration = duration;
-        }
+        private int counter = 0;
+        private QLearning qLearning;
 
         public void action() {
 
-            if(state.equals("receive")) {
+            if(state.equals(RECEIVE)) {
 
                 ACLMessage msg = receive();
 
                 if(msg != null) {
 
                     System.out.println(getLocalName() + " received ACLMessage" + ": " + msg.getContent());
-                    state = "send";
+                    state = SEND;
 
                 }
                 else {
@@ -73,7 +70,7 @@ public class FarmAgent extends Agent {
 
             }
 
-            if(state.equals("send")) {
+            if(state.equals(SEND)) {
 
                 for(String agent : agentsNames) {
 
@@ -92,7 +89,7 @@ public class FarmAgent extends Agent {
 
                 }
 
-                state = "receive";
+                state = RECEIVE;
 
             }
 
@@ -102,10 +99,7 @@ public class FarmAgent extends Agent {
 
         public boolean done() {
 
-            if(counter == duration)
-                return true;
-
-            return false;
+            return (counter == nEpisodes);
 
         }
 

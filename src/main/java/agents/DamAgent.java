@@ -1,6 +1,7 @@
 package agents;
 
 import static model.Utils.*;
+import behaviours.QLearning;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -10,7 +11,7 @@ import jade.lang.acl.ACLMessage;
 public class DamAgent extends Agent {
 
     private static double a2, b2, c2;
-    private static String state = "send";
+    private static String state = SEND;
 
     protected void setup() {
 
@@ -28,8 +29,8 @@ public class DamAgent extends Agent {
         b2 = Double.parseDouble(args[1].toString());
         c2 = Double.parseDouble(args[2].toString());
 
-        System.out.println("Dam Agent");
-        addBehaviour(new DamWaterManagement(20));
+        System.out.println(getLocalName());
+        addBehaviour(new DamWaterManagement());
 
     }
 
@@ -43,23 +44,19 @@ public class DamAgent extends Agent {
 
     public class DamWaterManagement extends Behaviour {
 
-        private int duration;
-        private int counter;
-
-        public DamWaterManagement(int duration) {
-            this.duration = duration;
-        }
+        private int counter = 0;
+        private QLearning qLearning;
 
         public void action() {
 
-            if(state.equals("receive")) {
+            if(state.equals(RECEIVE)) {
 
                 ACLMessage msg = receive();
 
                 if(msg != null) {
 
                     System.out.println(getLocalName() + " received ACLMessage" + ": " + msg.getContent());
-                    state = "send";
+                    state = SEND;
 
                 }
                 else {
@@ -70,7 +67,7 @@ public class DamAgent extends Agent {
 
             }
 
-            if(state.equals("send")) {
+            if(state.equals(SEND)) {
 
                 for(String agent : agentsNames) {
 
@@ -89,7 +86,7 @@ public class DamAgent extends Agent {
 
                 }
 
-                state = "receive";
+                state = RECEIVE;
 
             }
 
@@ -99,10 +96,7 @@ public class DamAgent extends Agent {
 
         public boolean done() {
 
-            if(counter == duration)
-                return true;
-
-            return false;
+            return (counter == nEpisodes);
 
         }
 
