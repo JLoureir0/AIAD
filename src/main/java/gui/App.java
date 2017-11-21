@@ -10,6 +10,7 @@ import java.awt.geom.Line2D;
 
 public class App extends JFrame{
 
+    private JPanel optionsPanel;
     private SchemaPanel schema;
     private WaterContainerPanel city, dam, farm1, farm2;
     private JButton launchSim;
@@ -30,6 +31,43 @@ public class App extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
+
+        //Options Panel
+        optionsPanel = new JPanel();
+        optionsPanel.setSize(600, 50);
+        optionsPanel.setLocation(0, 0);
+
+        optionsPanel.setLayout(new GridLayout());
+
+        JLabel scenariosLabel = new JLabel("Scenarios");
+        JSlider scenarios = new JSlider(JSlider.HORIZONTAL, 1, 3, 1);
+
+        scenarios.setMajorTickSpacing(1);
+        scenarios.setPaintTicks(true);
+        scenarios.setPaintLabels(true);
+
+        JLabel nEpisodesLabel = new JLabel("Episodes");
+        JTextField nEpisodes = new JTextField("10", 3);
+
+        JLabel learningRateLabel = new JLabel("Learning R");
+        JTextField learningRate = new JTextField("10", 3);
+
+        JLabel discountFactorLabel = new JLabel("Discount F");
+        JTextField discountFactor = new JTextField("10", 3);
+
+        optionsPanel.add(scenariosLabel);
+        optionsPanel.add(scenarios);
+
+        optionsPanel.add(nEpisodesLabel);
+        optionsPanel.add(nEpisodes);
+
+        optionsPanel.add(learningRateLabel);
+        optionsPanel.add(learningRate);
+
+        optionsPanel.add(discountFactorLabel);
+        optionsPanel.add(discountFactor);
+
+
         //Schema Panel
         schema = new SchemaPanel();
         schema.setBackground(Color.WHITE);
@@ -37,7 +75,6 @@ public class App extends JFrame{
         schema.setLayout(null);
 
         //Water Container Panels
-
         city = new WaterContainerPanel();
         city.setBackground(Color.GRAY);
         city.setLocation(0, 0);
@@ -75,7 +112,10 @@ public class App extends JFrame{
 
             public void actionPerformed(ActionEvent e) {
 
-                Watershed watershed = new Watershed();
+                Watershed watershed = new Watershed(scenarios.getValue()-1,
+                                                        Integer.parseInt(nEpisodes.getText()),
+                                                            Integer.parseInt(learningRate.getText()),
+                                                                Integer.parseInt(discountFactor.getText()));
 
             }
 
@@ -87,6 +127,7 @@ public class App extends JFrame{
 
 
         //Wrap elements in main JFrame
+        add(optionsPanel);
         add(schema);
         add(waterContainers);
         add(launchSim);

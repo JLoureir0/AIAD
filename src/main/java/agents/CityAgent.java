@@ -1,6 +1,7 @@
 package agents;
 
 import static model.Utils.*;
+import model.Scenario;
 import behaviours.QLearning;
 
 import jade.core.AID;
@@ -11,16 +12,19 @@ import jade.lang.acl.ACLMessage;
 public class CityAgent extends Agent {
 
     private static double a1, b1, c1;
+    private static int alpha1;
+    private static Scenario scenario;
+    private static int nEpisodes;
     private static String state = SEND;
 
     protected void setup() {
 
         Object[] args = getArguments();
 
-        if(args.length != 3) {
+        if(args.length != 6) {
 
-            System.out.println("Incorrect arguments");
-            doDelete();
+            System.out.println("Incorrect arguments for " + getLocalName());
+            takeDown();
             return;
 
         }
@@ -28,6 +32,9 @@ public class CityAgent extends Agent {
         a1 = Double.parseDouble(args[0].toString());
         b1 = Double.parseDouble(args[1].toString());
         c1 = Double.parseDouble(args[2].toString());
+        alpha1 = Integer.parseInt(args[3].toString());
+        scenario = (Scenario) args[4];
+        nEpisodes = Integer.parseInt(args[5].toString());
 
         System.out.println(getLocalName());
         addBehaviour(new CityWaterManagement());

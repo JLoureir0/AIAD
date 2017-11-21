@@ -1,6 +1,7 @@
 package agents;
 
 import static model.Utils.*;
+import model.Scenario;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -9,11 +10,25 @@ import jade.lang.acl.ACLMessage;
 
 public class EnvironmentAgent extends Agent{
 
+    private static Scenario scenario;
+    private static int nEpisodes;
     private static String state = SEND;
 
     protected void setup() {
 
-        System.out.println(getLocalName());
+        Object[] args = getArguments();
+
+        if(args.length != 2) {
+
+            System.out.println("Incorrect arguments for " + getLocalName());
+            takeDown();
+            return;
+
+        }
+
+        scenario = (Scenario) args[0];
+        nEpisodes = Integer.parseInt(args[1].toString());
+
         addBehaviour(new EnvironmentBehaviour());
 
     }

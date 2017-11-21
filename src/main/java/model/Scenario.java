@@ -1,5 +1,7 @@
 package model;
 
+import static model.Utils.*;
+
 public class Scenario {
 
     private int Q1;
@@ -8,21 +10,21 @@ public class Scenario {
 
     public Scenario(int n) {
 
-        if(n < 1 || n > 3){
+        if(n < SCENARIO_0 || n > SCENARIO_2){
 
             System.out.println("Invalid Scenario");
             return;
 
         }
 
-        if(n==1) {
+        if(n==SCENARIO_0) {
 
             Q1 = 160;
             Q2 = 65;
             S = 15;
 
         }
-        else if(n==2) {
+        else if(n==SCENARIO_1) {
 
             Q1 = 115;
             Q2 = 50;

@@ -1,6 +1,7 @@
 package agents;
 
 import static model.Utils.*;
+import model.Scenario;
 import behaviours.QLearning;
 
 import jade.core.AID;
@@ -12,15 +13,18 @@ public class FarmAgent extends Agent {
 
     private static int farmNo;
     private static double ax, bx, cx;
+    private static int alphax;
+    private static Scenario scenario;
+    private static int nEpisodes;
     private static String state = SEND;
 
     protected void setup() {
 
         Object[] args = getArguments();
 
-        if(args.length != 4) {
+        if(args.length != 7) {
 
-            System.out.println("Incorrect arguments");
+            System.out.println("Incorrect arguments for " + getLocalName());
             takeDown();
             return;
 
@@ -31,6 +35,9 @@ public class FarmAgent extends Agent {
         ax = Double.parseDouble(args[1].toString());
         bx = Double.parseDouble(args[2].toString());
         cx = Double.parseDouble(args[3].toString());
+        alphax = Integer.parseInt(args[4].toString());
+        scenario = (Scenario) args[5];
+        nEpisodes = Integer.parseInt(args[6].toString());
 
         System.out.println(getLocalName());
         addBehaviour(new FarmWaterManagement());
