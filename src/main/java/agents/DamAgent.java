@@ -11,10 +11,12 @@ import jade.lang.acl.ACLMessage;
 
 public class DamAgent extends Agent {
 
-    private static double a2, b2, c2;
-    private static int alpha2;
-    private static Scenario scenario;
-    private static int nEpisodes;
+    private double a, b, c;
+    private int alpha;
+
+    private Scenario scenario;
+    private int nEpisodes;
+
     private static String state = SEND;
 
     protected void setup() {
@@ -29,10 +31,11 @@ public class DamAgent extends Agent {
 
         }
 
-        a2 = Double.parseDouble(args[0].toString());
-        b2 = Double.parseDouble(args[1].toString());
-        c2 = Double.parseDouble(args[2].toString());
-        alpha2 = Integer.parseInt(args[3].toString());
+        a = Double.parseDouble(args[0].toString());
+        b = Double.parseDouble(args[1].toString());
+        c = Double.parseDouble(args[2].toString());
+        alpha = Integer.parseInt(args[3].toString());
+
         scenario = (Scenario) args[4];
         nEpisodes = Integer.parseInt(args[5].toString());
 
@@ -45,8 +48,8 @@ public class DamAgent extends Agent {
         doDelete();
     }
 
-    private double objFunction(double x2) {
-        return a2*x2*x2+b2*x2+c2;
+    private double objFunction(double x) {
+        return a*x*x+b*x+c;
     }
 
     public class DamWaterManagement extends Behaviour {

@@ -9,8 +9,6 @@ import jade.wrapper.ContainerController;
 import jade.wrapper.ControllerException;
 import jade.wrapper.StaleProxyException;
 
-import java.util.ArrayList;
-
 public class Watershed {
 
     //Defining constants
@@ -42,12 +40,11 @@ public class Watershed {
     private static final int alpha5 = 15;
     private static final int alpha6 = 10;
 
-    private static Scenario scenario;
-
-    private static int learningRate, discountFactor, nEpisodes;
-
     private static Profile p;
     private static ContainerController container;
+
+    private int nEpisodes, learningRate, discountFactor;
+    private Scenario scenario;
 
     public Watershed(int scenarioNo, int nEpisodes, int learningRate, int discountFactor) {
 
@@ -55,19 +52,13 @@ public class Watershed {
         this.learningRate = learningRate;
         this.discountFactor = discountFactor;
 
-        initScenario(scenarioNo);
+        scenario = new Scenario(scenarioNo);
 
         if(!initAgents())
             return;
 
         if(!startAgents())
             return;
-
-    }
-
-    private void initScenario(int scenarioNo) {
-
-        scenario = new Scenario(scenarioNo);
 
     }
 
@@ -83,8 +74,8 @@ public class Watershed {
             container.createNewAgent(agentsNames[0], EnvironmentAgent.class.getName(), new Object[] {scenario, nEpisodes});
             container.createNewAgent(agentsNames[1], CityAgent.class.getName(), new Object[] {a1, b1, c1, alpha1, scenario, nEpisodes});
             container.createNewAgent(agentsNames[2], DamAgent.class.getName(), new Object[] {a2, b2, c2, alpha2, scenario, nEpisodes});
-            container.createNewAgent(agentsNames[3], FarmAgent.class.getName(), new Object[] {farmNo1, a4, b4, c4, alpha4, scenario, nEpisodes});
-            container.createNewAgent(agentsNames[4], FarmAgent.class.getName(), new Object[] {farmNo2, a6, b6, c6, alpha6, scenario, nEpisodes});
+            container.createNewAgent(agentsNames[3], FarmAgent.class.getName(), new Object[] {a4, b4, c4, alpha4, scenario, nEpisodes});
+            container.createNewAgent(agentsNames[4], FarmAgent.class.getName(), new Object[] {a6, b6, c6, alpha6, scenario, nEpisodes});
 
         }
         catch(StaleProxyException e) {

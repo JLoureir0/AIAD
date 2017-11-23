@@ -11,18 +11,19 @@ import jade.lang.acl.ACLMessage;
 
 public class FarmAgent extends Agent {
 
-    private static int farmNo;
-    private static double ax, bx, cx;
-    private static int alphax;
-    private static Scenario scenario;
-    private static int nEpisodes;
+    private double a, b, c;
+    private int alpha;
+
+    private Scenario scenario;
+    private int nEpisodes;
+
     private static String state = SEND;
 
     protected void setup() {
 
         Object[] args = getArguments();
 
-        if(args.length != 7) {
+        if(args.length != 6) {
 
             System.out.println("Incorrect arguments for " + getLocalName());
             takeDown();
@@ -30,14 +31,13 @@ public class FarmAgent extends Agent {
 
         }
 
-        farmNo = Integer.parseInt(args[0].toString());
+        a = Double.parseDouble(args[0].toString());
+        b = Double.parseDouble(args[1].toString());
+        c = Double.parseDouble(args[2].toString());
+        alpha = Integer.parseInt(args[3].toString());
 
-        ax = Double.parseDouble(args[1].toString());
-        bx = Double.parseDouble(args[2].toString());
-        cx = Double.parseDouble(args[3].toString());
-        alphax = Integer.parseInt(args[4].toString());
-        scenario = (Scenario) args[5];
-        nEpisodes = Integer.parseInt(args[6].toString());
+        scenario = (Scenario) args[4];
+        nEpisodes = Integer.parseInt(args[5].toString());
 
         System.out.println(getLocalName());
         addBehaviour(new FarmWaterManagement());
@@ -49,7 +49,7 @@ public class FarmAgent extends Agent {
     }
 
     private double objFunction(double x) {
-        return ax*x*x+bx*x+cx;
+        return a*x*x+b*x+c;
     }
 
     public class FarmWaterManagement extends Behaviour {

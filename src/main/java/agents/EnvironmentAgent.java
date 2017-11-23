@@ -10,8 +10,9 @@ import jade.lang.acl.ACLMessage;
 
 public class EnvironmentAgent extends Agent{
 
-    private static Scenario scenario;
-    private static int nEpisodes;
+    private Scenario scenario;
+    private int nEpisodes;
+
     private static String state = SEND;
 
     protected void setup() {
@@ -29,6 +30,7 @@ public class EnvironmentAgent extends Agent{
         scenario = (Scenario) args[0];
         nEpisodes = Integer.parseInt(args[1].toString());
 
+        System.out.println(getLocalName() + " nEpisodes " + nEpisodes + " scenario " + scenario.getQ1());
         addBehaviour(new EnvironmentBehaviour());
 
     }

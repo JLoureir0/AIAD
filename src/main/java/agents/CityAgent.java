@@ -11,10 +11,12 @@ import jade.lang.acl.ACLMessage;
 
 public class CityAgent extends Agent {
 
-    private static double a1, b1, c1;
-    private static int alpha1;
-    private static Scenario scenario;
-    private static int nEpisodes;
+    private double a, b, c;
+    private int alpha;
+
+    private Scenario scenario;
+    private int nEpisodes;
+
     private static String state = SEND;
 
     protected void setup() {
@@ -29,10 +31,11 @@ public class CityAgent extends Agent {
 
         }
 
-        a1 = Double.parseDouble(args[0].toString());
-        b1 = Double.parseDouble(args[1].toString());
-        c1 = Double.parseDouble(args[2].toString());
-        alpha1 = Integer.parseInt(args[3].toString());
+        a = Double.parseDouble(args[0].toString());
+        b = Double.parseDouble(args[1].toString());
+        c = Double.parseDouble(args[2].toString());
+        alpha = Integer.parseInt(args[3].toString());
+
         scenario = (Scenario) args[4];
         nEpisodes = Integer.parseInt(args[5].toString());
 
@@ -45,8 +48,8 @@ public class CityAgent extends Agent {
         doDelete();
     }
 
-    private double objFunction(double x1) {
-        return a1*x1*x1+b1*x1+c1;
+    private double objFunction(double x) {
+        return a*x*x+b*x+c;
     }
 
     public class CityWaterManagement extends Behaviour {

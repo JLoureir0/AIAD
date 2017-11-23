@@ -10,38 +10,30 @@ import java.awt.geom.Line2D;
 
 public class App extends JFrame{
 
-    private JPanel optionsPanel;
-    private SchemaPanel schema;
-    private WaterContainerPanel city, dam, farm1, farm2;
-    private JButton launchSim;
+    private static String title = "Watershed";
 
     private static final int width = 600, height = 600;
-    private static final int widthButton = 100, heightButton = 30;
+
+    private JPanel optionsPanel;
+    private SchemaPanel schema;
+    private JPanel statsPanel;
+    private JButton launchSim;
 
     public App() {
         init();
     }
 
-    private void init() {
+    private void initOptionsPanel() {
 
-        //Main Frame
-        setTitle("Watershed");
-        setSize(width, height);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(null);
-
-
-        //Options Panel
         optionsPanel = new JPanel();
         optionsPanel.setSize(600, 50);
         optionsPanel.setLocation(0, 0);
 
-        optionsPanel.setLayout(new GridLayout());
+        Container opts = new Container();
+        opts.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
         JLabel scenariosLabel = new JLabel("Scenarios");
-        JSlider scenarios = new JSlider(JSlider.HORIZONTAL, 1, 3, 1);
-
+        JSlider scenarios = new JSlider(1, 3, 1);
         scenarios.setMajorTickSpacing(1);
         scenarios.setPaintTicks(true);
         scenarios.setPaintLabels(true);
@@ -55,54 +47,19 @@ public class App extends JFrame{
         JLabel discountFactorLabel = new JLabel("Discount F");
         JTextField discountFactor = new JTextField("10", 3);
 
-        optionsPanel.add(scenariosLabel);
-        optionsPanel.add(scenarios);
+        opts.add(scenariosLabel);
+        opts.add(scenarios);
 
-        optionsPanel.add(nEpisodesLabel);
-        optionsPanel.add(nEpisodes);
+        opts.add(nEpisodesLabel);
+        opts.add(nEpisodes);
 
-        optionsPanel.add(learningRateLabel);
-        optionsPanel.add(learningRate);
+        opts.add(learningRateLabel);
+        opts.add(learningRate);
 
-        optionsPanel.add(discountFactorLabel);
-        optionsPanel.add(discountFactor);
+        opts.add(discountFactorLabel);
+        opts.add(discountFactor);
 
-
-        //Schema Panel
-        schema = new SchemaPanel();
-        schema.setBackground(Color.WHITE);
-        schema.setLocation(0, 50);
-        schema.setLayout(null);
-
-        //Water Container Panels
-        city = new WaterContainerPanel();
-        city.setBackground(Color.GRAY);
-        city.setLocation(0, 0);
-        city.setLayout(null);
-
-        dam = new WaterContainerPanel();
-        dam.setBackground(Color.CYAN);
-        dam.setLocation(150, 0);
-        dam.setLayout(null);
-
-        farm1 = new WaterContainerPanel();
-        farm1.setBackground(Color.ORANGE);
-        farm1.setLocation(300, 0);
-        farm1.setLayout(null);
-
-        farm2 = new WaterContainerPanel();
-        farm2.setBackground(Color.RED);
-        farm2.setLocation(450, 0);
-        farm2.setLayout(null);
-
-        JPanel waterContainers = new JPanel();
-        waterContainers.setLayout(null);
-        waterContainers.setSize(600, 200);
-        waterContainers.setLocation(0, 350);
-        waterContainers.add(city);
-        waterContainers.add(dam);
-        waterContainers.add(farm1);
-        waterContainers.add(farm2);
+        optionsPanel.add(opts);
 
 
         //Launch Button
@@ -113,24 +70,79 @@ public class App extends JFrame{
             public void actionPerformed(ActionEvent e) {
 
                 Watershed watershed = new Watershed(scenarios.getValue()-1,
-                                                        Integer.parseInt(nEpisodes.getText()),
-                                                            Integer.parseInt(learningRate.getText()),
-                                                                Integer.parseInt(discountFactor.getText()));
+                        Integer.parseInt(nEpisodes.getText()),
+                        Integer.parseInt(learningRate.getText()),
+                        Integer.parseInt(discountFactor.getText()));
 
             }
 
         });
 
-        launchSim.setSize(widthButton, heightButton);
-        launchSim.setLocation((width/2)-(widthButton/2), 560);
+        launchSim.setSize(100, 30);
+        launchSim.setLocation((width/2)-(100/2), 560);
         launchSim.setLayout(null);
 
-
-        //Wrap elements in main JFrame
+        //Add elements to main JFrame
         add(optionsPanel);
-        add(schema);
-        add(waterContainers);
         add(launchSim);
+
+        return;
+
+    }
+
+    private void initStatsPanel() {
+
+        //Water Container Panels
+        WaterContainerPanel city = new WaterContainerPanel();
+        city.setBackground(Color.GRAY);
+
+        WaterContainerPanel dam = new WaterContainerPanel();
+        dam.setBackground(Color.CYAN);
+
+        WaterContainerPanel farm1 = new WaterContainerPanel();
+        farm1.setBackground(Color.ORANGE);
+
+        WaterContainerPanel farm2 = new WaterContainerPanel();
+        farm2.setBackground(Color.RED);
+
+        statsPanel = new JPanel();
+        statsPanel.setLayout(new GridLayout(1, 5));
+        statsPanel.setSize(600, 200);
+        statsPanel.setLocation(0, 350);
+
+        statsPanel.add(city);
+        statsPanel.add(dam);
+        statsPanel.add(farm1);
+        statsPanel.add(farm2);
+
+
+        //Add elements to main JFrame
+        add(statsPanel);
+
+        return;
+
+    }
+
+    private void init() {
+
+        //Main Frame
+        setTitle(title);
+        setSize(width, height);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(null);
+
+        initOptionsPanel();
+
+        //Schema Panel
+        schema = new SchemaPanel();
+        schema.setBackground(new Color(0, 130, 0));
+        schema.setLocation(0, 50);
+        schema.setLayout(null);
+
+        add(schema);
+
+        initStatsPanel();
 
         setVisible(true);
 
