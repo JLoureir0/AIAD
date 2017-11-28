@@ -28,7 +28,7 @@ public class EnvironmentAgent extends Agent{
         }
 
         scenario = (Scenario) args[0];
-        nEpisodes = Integer.parseInt(args[1].toString());
+        nEpisodes = (int) args[1];
 
         System.out.println(getLocalName() + " nEpisodes " + nEpisodes + " scenario " + scenario.getQ1());
         addBehaviour(new EnvironmentBehaviour());

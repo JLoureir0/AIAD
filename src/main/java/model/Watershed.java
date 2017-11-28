@@ -19,10 +19,10 @@ public class Watershed {
     private static final double a5 = -0.056;
     private static final double a6 = -0.15;
 
-    private static final int b1 = 6;
+    private static final double b1 = 6;
     private static final double b2 = 2.5;
     private static final double b3 = 6.28;
-    private static final int b4 = 6;
+    private static final double b4 = 6;
     private static final double b5 = 3.74;
     private static final double b6 = 7.6;
 

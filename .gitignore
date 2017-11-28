@@ -30,3 +30,12 @@ gradle-app.setting
 # ----
 APDescription.txt
 MTPs-Main-Container.txt
+
+# VSCODE
+# ----
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+bin/*

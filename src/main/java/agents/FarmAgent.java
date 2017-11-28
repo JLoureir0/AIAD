@@ -31,13 +31,13 @@ public class FarmAgent extends Agent {
 
         }
 
-        a = Double.parseDouble(args[0].toString());
-        b = Double.parseDouble(args[1].toString());
-        c = Double.parseDouble(args[2].toString());
-        alpha = Integer.parseInt(args[3].toString());
+        a = (double) args[0];
+        b = (double) args[1];
+        c = (int) args[2];
+        alpha = (int) args[3];
 
         scenario = (Scenario) args[4];
-        nEpisodes = Integer.parseInt(args[5].toString());
+        nEpisodes = (int) args[5];
 
         System.out.println(getLocalName());
         addBehaviour(new FarmWaterManagement());
