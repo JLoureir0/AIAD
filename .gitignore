@@ -39,3 +39,6 @@ MTPs-Main-Container.txt
 !.vscode/launch.json
 !.vscode/extensions.json
 bin/*
+.settings/*
+.classpath
+.project
