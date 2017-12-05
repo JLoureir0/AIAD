@@ -2,6 +2,8 @@ package behaviours;
 
 import java.util.*;
 
+import jade.core.behaviours.Behaviour;
+
 public class QLearning {
 
     private HashSet<String> actionsSet;
