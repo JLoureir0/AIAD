@@ -32,23 +32,15 @@ public class App extends JFrame{
         Container opts = new Container();
         opts.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
-        JLabel scenariosLabel = new JLabel("Scenarios");
-        JSlider scenarios = new JSlider(1, 3, 1);
-        scenarios.setMajorTickSpacing(1);
-        scenarios.setPaintTicks(true);
-        scenarios.setPaintLabels(true);
 
         JLabel nEpisodesLabel = new JLabel("Episodes");
-        JTextField nEpisodes = new JTextField("10", 3);
+        JTextField nEpisodes = new JTextField("500", 3);
 
         JLabel learningRateLabel = new JLabel("Learning R");
-        JTextField learningRate = new JTextField("10", 3);
+        JTextField learningRate = new JTextField("0.05", 3);
 
         JLabel discountFactorLabel = new JLabel("Discount F");
-        JTextField discountFactor = new JTextField("10", 3);
-
-        opts.add(scenariosLabel);
-        opts.add(scenarios);
+        JTextField discountFactor = new JTextField("0.75", 3);
 
         opts.add(nEpisodesLabel);
         opts.add(nEpisodes);
@@ -69,10 +61,10 @@ public class App extends JFrame{
 
             public void actionPerformed(ActionEvent e) {
 
-                Watershed watershed = new Watershed(scenarios.getValue()-1,
+                Watershed watershed = new Watershed(0,
                         Integer.parseInt(nEpisodes.getText()),
-                        Integer.parseInt(learningRate.getText()),
-                        Integer.parseInt(discountFactor.getText()));
+                        Double.parseDouble(learningRate.getText()),
+                        Double.parseDouble(discountFactor.getText()));
 
             }
 
